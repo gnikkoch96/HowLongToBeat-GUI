@@ -15,7 +15,6 @@ MAIN_TIME_LABEL = "Main Time"
 MAINX_TIME_LABEL = "Main + Extra Time"
 COMPLETE_TIME_LABEL = "Completionist Time"
 
-
 # vars
 TABLE_COL = 4
 TBL_HEADER_GAME = 0
@@ -35,7 +34,6 @@ class HLTBGUI:
         with self.dpg.window(id=HLTB_WINDOW_ID,
                              height=self.dpg.get_viewport_height(),
                              width=self.dpg.get_viewport_width()):
-            # 1st Row
             # Search Bar
             self.dpg.add_input_text(id=SEARCH_INPUT_ID,
                                     width=self.dpg.get_viewport_width() * 0.75)
@@ -46,14 +44,6 @@ class HLTBGUI:
                                 id=SEARCH_BTN_ID,
                                 width=self.dpg.get_viewport_width() * 0.15,
                                 callback=self.search_callback)
-
-            # 2nd Row
-            # Result Container
-            with self.dpg.child(id=RESULT_CONTAINER_ID,
-                                height=self.dpg.get_viewport_height() * 0.60,
-                                width=self.dpg.get_viewport_width() * 0.85):
-                # Results Text
-                self.dpg.add_text(RESULT_LABEL)
 
     def search_callback(self):
         # delete the table so that a new table can be made
@@ -72,7 +62,26 @@ class HLTBGUI:
 
             # use API to search
             results = HowLongToBeat().search(search_query)
-            print(len(results))
+
+            # Result Container
+            with self.dpg.child(id=RESULT_CONTAINER_ID,
+                                parent=HLTB_WINDOW_ID,
+                                height=self.dpg.get_viewport_height() * 0.60,
+                                width=self.dpg.get_viewport_width() * 0.85):
+
+                # Results Label Text
+                self.dpg.add_text(RESULT_LABEL)
+
+                # Results Table
+                with self.dpg.table(id=TABLE_ID,
+                                    parent=RESULT_CONTAINER_ID,
+                                    header_row=True):
+                    # column headers
+                    self.dpg.add_table_column(label=GAME_LABEL)
+                    self.dpg.add_table_column(label=MAIN_TIME_LABEL)
+                    self.dpg.add_table_column(label=MAINX_TIME_LABEL)
+                    self.dpg.add_table_column(label=COMPLETE_TIME_LABEL)
+
             if results is not None and len(results) == 1:
                 best_result = max(results, key=lambda element: element.similarity)
                 self.add_game(best_result)
@@ -80,46 +89,41 @@ class HLTBGUI:
             else:
                 # print out the other results
                 for i in range(len(results)):
-                    self.add_game(results)
+                    game = results[i]
+                    self.add_game(game)
 
-    def add_game(self, result):
-        # Results Table
-        with self.dpg.table(id=TABLE_ID,
-                            parent=RESULT_CONTAINER_ID,
-                            header_row=True):
-            # column headers
-            self.dpg.add_table_column(label=GAME_LABEL)
-            self.dpg.add_table_column(label=MAIN_TIME_LABEL)
-            self.dpg.add_table_column(label=MAINX_TIME_LABEL)
-            self.dpg.add_table_column(label=COMPLETE_TIME_LABEL)
+    def add_game(self, game):
+        # Game Name + Cover
+        self.dpg.add_text(game.game_name,
+                          parent=TABLE_ID)
+        # Tools.add_and_load_image(self.dpg, 'resources/game_imgs/95887_Pokemon_Unite.jpg',
+        #                          parent=TABLE_ID)
+        self.dpg.add_table_next_column(parent=TABLE_ID)
 
-            for i in range(len(result)):
-                game = result[i]
-                # Game Name + Cover
-                self.dpg.add_text(game.game_name)
-                self.dpg.add_table_next_column()
+        # Main Time
+        if game.gameplay_main_unit is not None:
+            main_t = game.gameplay_main + " " + game.gameplay_main_unit
+        else:
+            main_t = 'N/A'
+        self.dpg.add_text(main_t,
+                          parent=TABLE_ID)
+        self.dpg.add_table_next_column(parent=TABLE_ID)
 
-                # Main Time
-                if game.gameplay_main_unit is not None:
-                    main_t = game.gameplay_main + " " + game.gameplay_main_unit
-                else:
-                    main_t = 'N/A'
-                self.dpg.add_text(main_t)
-                self.dpg.add_table_next_column()
+        # Main + Extra Time
+        if game.gameplay_main_extra_unit is not None:
+            mainx_t = game.gameplay_main_extra + " " + game.gameplay_main_extra_unit
+        else:
+            mainx_t = 'N/A'
+        self.dpg.add_text(mainx_t,
+                          parent=TABLE_ID)
+        self.dpg.add_table_next_column(parent=TABLE_ID)
 
-                # Main + Extra Time
-                if game.gameplay_main_extra_unit is not None:
-                    mainx_t = game.gameplay_main_extra + " " + game.gameplay_main_extra_unit
-                else:
-                    mainx_t = 'N/A'
-                self.dpg.add_text(mainx_t)
-                self.dpg.add_table_next_column()
-
-                # Completionist Time
-                if game.gameplay_completionist_unit is not None:
-                    comp_t = game.gameplay_completionist + " " + game.gameplay_completionist_unit
-                else:
-                    comp_t = 'N/A'
-                self.dpg.add_text(comp_t)
-                self.dpg.add_table_next_column()
+        # Completionist Time
+        if game.gameplay_completionist_unit is not None:
+            comp_t = game.gameplay_completionist + " " + game.gameplay_completionist_unit
+        else:
+            comp_t = 'N/A'
+        self.dpg.add_text(comp_t,
+                          parent=TABLE_ID)
+        self.dpg.add_table_next_column(parent=TABLE_ID)
 
