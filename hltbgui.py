@@ -46,15 +46,15 @@ class HLTBGUI:
                                 callback=self.search_callback)
 
     def search_callback(self):
-        # delete the table so that a new table can be made
-        if self.isSearched:
-            self.dpg.delete_item(TABLE_ID)
-
         # Grab the string from the input field
         search_query = self.dpg.get_value(SEARCH_INPUT_ID)
 
         # Check if it is blank or not (using the Tools)
         if not Tools.isBlank(search_query):
+            # delete the table so that a new table can be made
+            if self.isSearched:
+                self.dpg.delete_item(RESULT_CONTAINER_ID)
+
             self.isSearched = True
 
             # reset input field
