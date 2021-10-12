@@ -14,6 +14,7 @@ GAME_LABEL = "Game"
 MAIN_TIME_LABEL = "Main Time"
 MAINX_TIME_LABEL = "Main + Extra Time"
 COMPLETE_TIME_LABEL = "Completionist Time"
+SEARCH_BTN_LABEL = "Search"
 
 # vars
 TABLE_COL = 4
@@ -40,7 +41,7 @@ class HLTBGUI:
 
             # Search Button
             self.dpg.add_same_line()
-            self.dpg.add_button(label="Search",
+            self.dpg.add_button(label=SEARCH_BTN_LABEL,
                                 id=SEARCH_BTN_ID,
                                 width=self.dpg.get_viewport_width() * 0.15,
                                 callback=self.search_callback)
