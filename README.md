@@ -15,7 +15,7 @@
 
 <!-- Technologies and Frameworks -->
 <h2> Technologies and Frameworks </h2>
-<p> Make sure to install the DearPyGUI, HowLongToBeat, and OpenCV Modules for it to work. You can follow the installation to DearPyGUI <a href="https://github.com/hoffstadt/DearPyGui"> here </a>, HowLongToBeat-PythonAPI <a href="https://github.com/ScrappyCocco/HowLongToBeat-PythonAPI#usage"> here </a>, and OpenCV modules</p> 
+<p> Make sure to install the DearPyGUI, HowLongToBeat, and OpenCV Modules for it to work. You can follow the installation to DearPyGUI <a href="https://github.com/hoffstadt/DearPyGui"> here </a>, HowLongToBeat-PythonAPI <a href="https://github.com/ScrappyCocco/HowLongToBeat-PythonAPI#usage"> here </a>, and OpenCV modules <a href="https://stackoverflow.com/questions/37776228/pycharm-python-opencv-and-cv2-install-error">here</a></p> 
 
 <p> Alt: <i> pip install dearpygui </i>, <i> pip install howlongtobeat</i>, and <i> pip install opencv-python</i> </p>
 
