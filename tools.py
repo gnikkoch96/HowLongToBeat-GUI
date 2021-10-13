@@ -50,8 +50,6 @@ class Tools:
             name + ".png"
         )
 
-        # gets the abs path (used to move the file to a specific folder)
-        # todo: might not need to do this as the file will be created in the root dir
         path = name + ".png"
 
         # resize image
@@ -74,5 +72,4 @@ class Tools:
         new_path = f"resources/game_imgs/{name}.png"
         os.replace(path, new_path)
 
-        # todo: return the new path of the image to be loaded through the dpg
         return new_path

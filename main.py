@@ -5,6 +5,7 @@ from hltbgui import HLTBGUI
 VIEWPORT_HEIGHT = 1000
 VIEWPORT_WIDTH = 1000
 
+
 def create_win():
     # dpg viewport
     dpg.setup_viewport()
@@ -26,6 +27,6 @@ def create_dpg_themes():
         dpg.add_theme_color(dpg.mvThemeCol_WindowBg, (156, 209, 28), category=dpg.mvThemeCat_Core)
         dpg.add_theme_color(dpg.mvThemeCol_ScrollbarGrab, (156, 209, 28), category=dpg.mvThemeCat_Core)
 
+
 if __name__ == '__main__':
-    dpg.show_style_editor()
     create_win()

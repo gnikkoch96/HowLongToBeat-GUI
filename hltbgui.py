@@ -24,6 +24,13 @@ GAME_IMG_DIR = "resources/game_imgs"
 GAME_NAME_WRAP_CNT = 200
 IMG_SCALE_FACTOR = 0.25
 
+
+def cleanup_game_folder():
+    # delete all of the images from the game_imgs folder
+    for file in os.listdir(GAME_IMG_DIR):
+        os.remove(os.path.join(GAME_IMG_DIR, file))
+
+
 class HLTBGUI:
     def __init__(self, dpg):
         self.dpg = dpg
@@ -55,12 +62,11 @@ class HLTBGUI:
             Tools.add_padding(self.dpg, 25, 10, True)
 
     def search_callback(self):
-        # Grab the string from the input field
         search_query = self.dpg.get_value(SEARCH_INPUT_ID)
 
-        # Check if it is blank or not (using the Tools)
         if not Tools.isBlank(search_query):
             # delete the table so that a new table can be made
+            # todo clean up logic for this part
             if self.isSearched:
                 self.dpg.delete_item(RESULT_CONTAINER_ID)
 
@@ -101,16 +107,17 @@ class HLTBGUI:
                     game = results[i]
                     self.add_game(game)
 
-            self.cleanup_game_folder()
+            cleanup_game_folder()
 
     def add_game(self, game):
-        # Game Name + Cover
+        # Game Name
         self.dpg.add_text(game.game_name,
                           parent=TABLE_ID,
                           wrap=GAME_NAME_WRAP_CNT)
 
+        # Game Cover
         # 7 b/c /games/ is constant for all image urls
-        game_file_name = game.game_image_url[7 : game.game_image_url.index('.')]
+        game_file_name = game.game_image_url[7: game.game_image_url.index('.')]
         img_path = Tools.load_img_url(HLTB_URL + game.game_image_url, game_file_name, IMG_SCALE_FACTOR)
 
         if img_path is not None:
@@ -143,9 +150,3 @@ class HLTBGUI:
         self.dpg.add_text(comp_t,
                           parent=TABLE_ID)
         self.dpg.add_table_next_column(parent=TABLE_ID)
-
-
-    def cleanup_game_folder(self):
-        # delete all of the images from the game_imgs folder
-        for file in os.listdir(GAME_IMG_DIR):
-            os.remove(os.path.join(GAME_IMG_DIR, file))
