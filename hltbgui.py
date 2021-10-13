@@ -17,8 +17,9 @@ COMPLETE_TIME_LABEL = "Completionist Time"
 SEARCH_BTN_LABEL = "Search"
 
 # vars
+BANNER_IMG_PATH = "resources/img/banner.png"
 GAME_NAME_WRAP_CNT = 200
-IMG_SCALE_FACTOR = 0.50
+IMG_SCALE_FACTOR = 0.25
 
 class HLTBGUI:
     def __init__(self, dpg):
@@ -31,7 +32,12 @@ class HLTBGUI:
         with self.dpg.window(id=HLTB_WINDOW_ID,
                              height=self.dpg.get_viewport_height(),
                              width=self.dpg.get_viewport_width()):
+            # Banner
+            Tools.add_padding(self.dpg, 75, 15, True)
+            Tools.add_and_load_image(self.dpg, BANNER_IMG_PATH, HLTB_WINDOW_ID)
+
             # Search Bar
+            Tools.add_padding(self.dpg, 25, 10, True)
             self.dpg.add_input_text(id=SEARCH_INPUT_ID,
                                     width=self.dpg.get_viewport_width() * 0.75)
 
@@ -41,6 +47,9 @@ class HLTBGUI:
                                 id=SEARCH_BTN_ID,
                                 width=self.dpg.get_viewport_width() * 0.15,
                                 callback=self.search_callback)
+
+            # Padding for the Results Container
+            Tools.add_padding(self.dpg, 25, 10, True)
 
     def search_callback(self):
         # Grab the string from the input field
@@ -63,8 +72,8 @@ class HLTBGUI:
             # Result Container
             with self.dpg.child(id=RESULT_CONTAINER_ID,
                                 parent=HLTB_WINDOW_ID,
-                                height=self.dpg.get_viewport_height() * 0.60,
-                                width=self.dpg.get_viewport_width() * 0.85):
+                                height=self.dpg.get_viewport_height() * 0.65,
+                                width=self.dpg.get_viewport_width() * 0.908):
 
                 # Results Label Text
                 self.dpg.add_text(RESULT_LABEL)
@@ -95,7 +104,10 @@ class HLTBGUI:
                           parent=TABLE_ID,
                           wrap=GAME_NAME_WRAP_CNT)
 
-        img_path = Tools.load_img_url('https://howlongtobeat.com' + game.game_image_url, game.game_name, IMG_SCALE_FACTOR)
+        # 7 b/c /games/ is constant for all image urls
+        game_file_name = game.game_image_url[7 : game.game_image_url.index('.')]
+        img_path = Tools.load_img_url('https://howlongtobeat.com' + game.game_image_url, game_file_name, IMG_SCALE_FACTOR)
+
         if img_path is not None:
             Tools.add_and_load_image(self.dpg, img_path, parent=TABLE_ID)
         self.dpg.add_table_next_column(parent=TABLE_ID)

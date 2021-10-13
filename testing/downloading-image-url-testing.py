@@ -6,7 +6,7 @@ from PIL import Image
 
 # retrieves the img through url and downloads to local folder
 urllib.request.urlretrieve(
-  'https://howlongtobeat.com/games/79793_Kena_Bridge_of_Spirits.jpg',
+  'https://howlongtobeat.com/games/80153_New_Pokemon_Snap.jpg',
    "kena.png")
 
 # gets the abs path (used to move the file to a specific folder)
@@ -20,7 +20,7 @@ os.replace(path, new_path)
 # resize the image
 img = cv2.imread(new_path)
 print(type(img))
-scale_percent = 0.10
+scale_percent = 0.25
 width = int(img.shape[1] * scale_percent)
 height = int(img.shape[0] * scale_percent)
 dimension = (width, height)
