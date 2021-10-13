@@ -17,12 +17,8 @@ COMPLETE_TIME_LABEL = "Completionist Time"
 SEARCH_BTN_LABEL = "Search"
 
 # vars
-TABLE_COL = 4
-TBL_HEADER_GAME = 0
-TBL_HEADER_MAIN = 1
-TBL_HEADER_MAINX = 2
-TBL_HEADER_COMP = 3
-
+GAME_NAME_WRAP_CNT = 200
+IMG_SCALE_FACTOR = 0.50
 
 class HLTBGUI:
     def __init__(self, dpg):
@@ -96,9 +92,12 @@ class HLTBGUI:
     def add_game(self, game):
         # Game Name + Cover
         self.dpg.add_text(game.game_name,
-                          parent=TABLE_ID)
-        # Tools.add_and_load_image(self.dpg, 'resources/game_imgs/95887_Pokemon_Unite.jpg',
-        #                          parent=TABLE_ID)
+                          parent=TABLE_ID,
+                          wrap=GAME_NAME_WRAP_CNT)
+
+        img_path = Tools.load_img_url('https://howlongtobeat.com' + game.game_image_url, game.game_name, IMG_SCALE_FACTOR)
+        if img_path is not None:
+            Tools.add_and_load_image(self.dpg, img_path, parent=TABLE_ID)
         self.dpg.add_table_next_column(parent=TABLE_ID)
 
         # Main Time

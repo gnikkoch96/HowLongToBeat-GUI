@@ -1,3 +1,8 @@
+import urllib
+import os
+import cv2
+
+
 class Tools:
     @staticmethod
     def add_padding(dpg, width_value=0, height_value=0, is_same_line=False):
@@ -30,3 +35,46 @@ class Tools:
             return False
         # myString is None OR myString is empty or blank
         return True
+
+
+    @staticmethod
+    # loads the image through a url, and then scales it down
+    # url - url of image
+    # name - name the image
+    # scale_factor - how small do you want the image to be (0.0 -> 1)
+    def load_img_url(url, name, scale_factor):
+        # retrieves the img through url and downloads to local folder
+
+        urllib.request.urlretrieve(
+            url,
+            name + ".png"
+        )
+
+        # gets the abs path (used to move the file to a specific folder)
+        # todo: might not need to do this as the file will be created in the root dir
+        pkg_dir = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(pkg_dir, "../" + name + ".png")
+        print(path)
+
+        # resize image
+        img = cv2.imread(f"{name}.png")
+
+        if img is None:
+            print("Warning: Image was not loaded, please check url")
+            return
+
+        width = int(img.shape[1] * scale_factor)
+        height = int(img.shape[0] * scale_factor)
+        dimension = (width, height)
+
+        resized = cv2.resize(img, dimension, interpolation=cv2.INTER_AREA)
+
+        # new file contains the resized image and replaces old image
+        cv2.imwrite(f'{name}.png', resized)
+
+        # moves the image to the correct folder
+        new_path = os.path.join(pkg_dir, f"../resources/game_imgs/{name}.png")
+        os.replace(path, new_path)
+
+        # todo: return the new path of the image to be loaded through the dpg
+        return new_path
