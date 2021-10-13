@@ -32,8 +32,8 @@
 <h2> How to Setup </h2>
 <ol>
     <li> Make sure to install all the necessary frameworks (mentioned at in the Technologies and Frameworks section) </li>
-    <li> Launch the main.py, and the GUI should show up </li>
-    <li> Search the game you want, and the results should be shown </li>
+    <li> Launch the main.py </li>
+    <li> Search a game </li>
 </ol>
 
 <!-- Demonstration-->
