@@ -52,12 +52,10 @@ class Tools:
 
         # gets the abs path (used to move the file to a specific folder)
         # todo: might not need to do this as the file will be created in the root dir
-        pkg_dir = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(pkg_dir, "../" + name + ".png")
-        print(path)
+        path = name + ".png"
 
         # resize image
-        img = cv2.imread(f"{name}.png")
+        img = cv2.imread(path)
 
         if img is None:
             print("Warning: Image was not loaded, please check url")
@@ -73,7 +71,7 @@ class Tools:
         cv2.imwrite(f'{name}.png', resized)
 
         # moves the image to the correct folder
-        new_path = os.path.join(pkg_dir, f"../resources/game_imgs/{name}.png")
+        new_path = f"resources/game_imgs/{name}.png"
         os.replace(path, new_path)
 
         # todo: return the new path of the image to be loaded through the dpg
