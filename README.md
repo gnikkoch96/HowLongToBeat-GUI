@@ -5,10 +5,10 @@
 <h2> Description </h2>
 
 <!-- 1. Describe the project -->
-<p> This project utilizes <a href="https://github.com/ScrappyCocco/HowLongToBeat-PythonAPI"> ScrappyCocco's HowLongToBeat-PythonAPI </a>. How Long to Beat is a website that I mainly use to see how long it takes to beat a game. The website contains information about the average time to beat a game if you are mainly doing the story, story + extra, and even if you want to complete everything the game has to offer. I made a GUI that essentially does the basic functionalities of the website (i.e. just shows the completion times). </p>
+<p> This project utilizes <a href="https://github.com/ScrappyCocco/HowLongToBeat-PythonAPI"> ScrappyCocco's HowLongToBeat-PythonAPI </a>. How Long to Beat is a website that displays useful information like how long it takes to beat a game's main story, main story + extra activities, and completing the game in its entirety. This GUI performs the basic functionalities of the website--only showing the time to complete the games.</p>
 
 <!-- 2. Explain why you made it -->
-<p> I made this project in mind of my interests of video games, and my likeness of the How Long to Beat website. I wanted to use my experience of creating python GUIs with my hobby of gaming. </p>
+<p> I made this project because I liked the website and I was curious if I can create a GUI version of it using the DearPyGUI framework.</p>
 
 <!-- 3. Describe how this is done -->
 <p> </p>
