@@ -54,8 +54,8 @@
 <h2> Credits </h2>
 <ul>
     <li><a href="https://howlongtobeat.com/"> How Long To Beat Website </a></li>
-    <li>Banner was made using <a href="https://www.canva.com/"> Canva </a></li>
     <li><a href="https://opengameart.org/content/medieval-sword"> Sword Art by Lexatchison </a></li>
     <li><a href="https://opengameart.org/content/ps4-controller-icon"> Controller Art by needforbleed </a></li>
+    <li>Banner was made using <a href="https://www.canva.com/"> Canva </a></li>
 </ul>
 
