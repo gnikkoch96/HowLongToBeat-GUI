@@ -1,3 +1,4 @@
+import os
 from tools import Tools
 from howlongtobeatpy import HowLongToBeat
 
@@ -17,7 +18,9 @@ COMPLETE_TIME_LABEL = "Completionist Time"
 SEARCH_BTN_LABEL = "Search"
 
 # vars
+HLTB_URL = 'https://howlongtobeat.com'
 BANNER_IMG_PATH = "resources/img/banner.png"
+GAME_IMG_DIR = "resources/game_imgs"
 GAME_NAME_WRAP_CNT = 200
 IMG_SCALE_FACTOR = 0.25
 
@@ -98,6 +101,8 @@ class HLTBGUI:
                     game = results[i]
                     self.add_game(game)
 
+            self.cleanup_game_folder()
+
     def add_game(self, game):
         # Game Name + Cover
         self.dpg.add_text(game.game_name,
@@ -106,7 +111,7 @@ class HLTBGUI:
 
         # 7 b/c /games/ is constant for all image urls
         game_file_name = game.game_image_url[7 : game.game_image_url.index('.')]
-        img_path = Tools.load_img_url('https://howlongtobeat.com' + game.game_image_url, game_file_name, IMG_SCALE_FACTOR)
+        img_path = Tools.load_img_url(HLTB_URL + game.game_image_url, game_file_name, IMG_SCALE_FACTOR)
 
         if img_path is not None:
             Tools.add_and_load_image(self.dpg, img_path, parent=TABLE_ID)
@@ -139,3 +144,8 @@ class HLTBGUI:
                           parent=TABLE_ID)
         self.dpg.add_table_next_column(parent=TABLE_ID)
 
+
+    def cleanup_game_folder(self):
+        # delete all of the images from the game_imgs folder
+        for file in os.listdir(GAME_IMG_DIR):
+            os.remove(os.path.join(GAME_IMG_DIR, file))
